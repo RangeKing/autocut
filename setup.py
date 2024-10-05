@@ -1,27 +1,33 @@
 from setuptools import setup, find_packages
-import os
 
 requirements = [
-    "srt",
+    "ffmpeg-python",
     "moviepy",
+    "openai-whisper",
     "opencc-python-reimplemented",
-    "torchaudio",
     "parameterized",
-    "whisper @ git+https://github.com/openai/whisper.git",
+    "pydub",
+    "srt",
+    "torchaudio",
+    "tqdm",
 ]
 
-init_fn = os.path.join(os.path.dirname(__file__), "autocut", "__init__.py")
-with open(init_fn) as f:
-    for l in f.readlines():
-        if "__version__" in l:
-            exec(l)
-            break
 
 setup(
-    name="autocut",
-    version=__version__,
+    name="autocut-sub",
     install_requires=requirements,
-    python_requires=">=3.9",
+    url="https://github.com/mli/autocut",
+    project_urls={
+        "source": "https://github.com/mli/autocut",
+    },
+    license="Apache License 2.0",
+    long_description=open("README.md", "r", encoding="utf-8").read(),
+    long_description_content_type="text/markdown",
+    extras_require={
+        "all": ["openai", "faster-whisper"],
+        "openai": ["openai"],
+        "faster": ["faster-whisper"],
+    },
     packages=find_packages(),
     entry_points={
         "console_scripts": [

@@ -27,33 +27,34 @@ logger.addHandler(file_handler)
 # 日志输出到控制台
 logger.addHandler(ch)
 
-TEST_VIDEO_PATH = "./test/video/"
+TEST_MEDIA_PATH = "./test/media/"
 TEST_CONTENT_PATH = "./test/content/"
-TEST_VIDEO_FILE = ["test001.mp4", "test002.mov", "test003.mkv", "test004.flv"]
-TEST_VIDEO_FILE_LANG = ["test001_en.mp4"]
-TEST_VIDEO_FILE_SIMPLE = ["test001.mp4"]
+TEST_MEDIA_FILE = [
+    "test001.mp4",
+    "test002.mov",
+    "test003.mkv",
+    "test004.flv",
+    "test005.mp3",
+    "test006.MP4",
+]
+
+TEST_MEDIA_FILE_LANG = ["test001_en.mp4"]
+TEST_MEDIA_FILE_SIMPLE = ["test001.mp4", "test005.mp3"]
 
 
 class TestArgs:
-    def __init__(
-        self,
-        encoding="utf-8",
-        sampling_rate=16000,
-        bitrate="10m",
-        lang="zh",
-        prompt="",
-        whisper_model="small",
-        device=None,
-        vad=False,
-        force=False,
-    ):
+    def __init__(self):
         self.inputs = []
-        self.bitrate = bitrate
-        self.encoding = encoding
-        self.sampling_rate = sampling_rate
-        self.lang = lang
-        self.prompt = prompt
-        self.whisper_model = whisper_model
-        self.device = device
-        self.vad = vad
-        self.force = force
+        self.bitrate = "10m"
+        self.encoding = "utf-8"
+        self.sampling_rate = 16000
+        self.lang = "zh"
+        self.prompt = ""
+        self.whisper_model = "small"
+        self.device = None
+        self.vad = False
+        self.force = False
+        self.whisper_mode = (
+            "faster" if os.environ.get("WHISPER_MODE") == "faster" else "whisper"
+        )
+        self.openai_rpm = 3
